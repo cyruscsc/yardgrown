@@ -1,3 +1,11 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+* {
+  @apply font-quicksand;
+}
+
+.nav-hover {
+  @apply hover:underline hover:text-grullo duration-200;
+}
