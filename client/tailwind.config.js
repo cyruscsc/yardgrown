@@ -12,6 +12,7 @@ export default {
       stream: '#C4D5C3',
       grullo: '#A9907E',
       wenge: '#675D50',
+      pink: '#D57E7E',
     },
     fontFamily: {
       quicksand: ['Quicksand', 'sans-serif'],

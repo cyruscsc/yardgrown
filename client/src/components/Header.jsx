@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { routes } from '../constants';
 import {
@@ -9,11 +8,6 @@ import {
 import logo from '../assets/yardgrown-wenge.png';
 
 export default function Header() {
-  const [dropdownShown, setDropdownShown] = useState(false);
-
-  const toggleDropdown = () => setDropdownShown(!dropdownShown);
-  const hideDropdown = () => setDropdownShown(false);
-
   return (
     <header className='bg-leaves text-wenge text-base font-medium'>
       <div className='flex items-center justify-between max-w-7xl mx-auto px-8 py-4'>
@@ -37,12 +31,12 @@ export default function Header() {
         <nav>
           <ul className='flex items-center justify-center gap-8 text-xl'>
             <li className='nav-hover'>
-              <Link to={routes.about} onClick={hideDropdown}>
+              <Link to={routes.about}>
                 <FaRegLightbulb />
               </Link>
             </li>
             <li className='nav-hover'>
-              <Link to={routes.profile} onClick={hideDropdown}>
+              <Link to={routes.profile}>
                 <FaRegCircleUser />
               </Link>
             </li>

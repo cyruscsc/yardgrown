@@ -6,3 +6,7 @@ export const routes = {
   signIn: '/sign-in',
   signOut: '/sign-out',
 };
+
+export const endpoints = {
+  signUp: '/api/auth/sign-up',
+};
