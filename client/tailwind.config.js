@@ -9,6 +9,7 @@ export default {
       linen: '#FAF1E6',
       champagne: '#F3DEBA',
       leaves: '#ABC4AA',
+      stream: '#C4D5C3',
       grullo: '#A9907E',
       wenge: '#675D50',
     },

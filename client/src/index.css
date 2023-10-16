@@ -3,9 +3,41 @@
 @tailwind utilities;
 
 * {
-  @apply font-quicksand;
+  @apply font-quicksand text-wenge;
+}
+
+body {
+  @apply bg-snow;
+}
+
+.title {
+  @apply text-3xl font-medium my-8;
 }
 
 .nav-hover {
   @apply hover:underline hover:text-grullo duration-200;
+}
+
+.auth-container {
+  @apply flex flex-col max-w-lg px-4 mx-auto;
+}
+
+.auth-form {
+  @apply flex flex-col gap-4;
+}
+
+.auth-input {
+  @apply border border-linen rounded-lg p-3 focus:outline-grullo;
+}
+
+.auth-button {
+  @apply bg-grullo rounded-lg p-3 text-snow font-medium uppercase hover:opacity-90 disabled:opacity-50 duration-300;
+}
+
+.auth-link-container {
+  @apply flex gap-2 my-2;
+}
+
+.auth-link {
+  @apply text-grullo;
 }
