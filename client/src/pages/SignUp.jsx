@@ -30,7 +30,7 @@ export default function SignUp() {
       body: JSON.stringify(formData),
     });
     const data = await res.json();
-    if (!data.succes) {
+    if (data.success === false) {
       setFormData({
         ...formData,
         password: '',
