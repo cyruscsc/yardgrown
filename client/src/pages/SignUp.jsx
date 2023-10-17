@@ -47,7 +47,6 @@ export default function SignUp() {
     setError(null);
     setLoading(false);
     navigate(routes.signIn);
-    console.log(data);
   };
 
   return (
