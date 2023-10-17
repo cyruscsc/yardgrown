@@ -1,15 +1,21 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { endpoints, routes } from '../constants';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  signInStart,
+  signInSuccess,
+  signInFailure,
+} from '../redux/user/userSlice';
 
 export default function SignIn() {
   const [formData, setFormData] = useState({
     email: '',
     password: '',
   });
-  const [error, setError] = useState(null);
-  const [loading, setLoading] = useState(false);
+  const { error, loading } = useSelector((state) => state.user);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleChange = (e) => {
     setFormData({
@@ -20,31 +26,33 @@ export default function SignIn() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true);
-    const res = await fetch(endpoints.signIn, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(formData),
-    });
-    const data = await res.json();
-    if (data.success === false) {
+    try {
+      dispatch(signInStart());
+      const res = await fetch(endpoints.signIn, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+      const data = await res.json();
+      if (data.success === false) {
+        setFormData({
+          ...formData,
+          password: '',
+        });
+        dispatch(signInFailure(data.message));
+        return;
+      }
       setFormData({
-        ...formData,
+        email: '',
         password: '',
       });
-      setError(data.message);
-      setLoading(false);
-      return;
+      dispatch(signInSuccess(data));
+      navigate(routes.home);
+    } catch (error) {
+      dispatch(signInFailure(error));
     }
-    setFormData({
-      email: '',
-      password: '',
-    });
-    setError(null);
-    setLoading(false);
-    navigate(routes.home);
   };
 
   return (

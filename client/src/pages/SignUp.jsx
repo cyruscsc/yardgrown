@@ -21,32 +21,37 @@ export default function SignUp() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true);
-    const res = await fetch(endpoints.signUp, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(formData),
-    });
-    const data = await res.json();
-    if (data.success === false) {
+    try {
+      setLoading(true);
+      const res = await fetch(endpoints.signUp, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+      const data = await res.json();
+      if (data.success === false) {
+        setFormData({
+          ...formData,
+          password: '',
+        });
+        setError(data.message);
+        setLoading(false);
+        return;
+      }
       setFormData({
-        ...formData,
+        username: '',
+        email: '',
         password: '',
       });
-      setError(data.message);
+      setError(null);
       setLoading(false);
-      return;
+      navigate(routes.signIn);
+    } catch (error) {
+      setError(error);
+      setLoading(false);
     }
-    setFormData({
-      username: '',
-      email: '',
-      password: '',
-    });
-    setError(null);
-    setLoading(false);
-    navigate(routes.signIn);
   };
 
   return (
