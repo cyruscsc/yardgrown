@@ -10,4 +10,5 @@ export const routes = {
 export const endpoints = {
   signUp: '/api/auth/sign-up',
   signIn: '/api/auth/sign-in',
+  google: '/api/auth/google',
 };

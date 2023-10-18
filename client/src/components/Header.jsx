@@ -26,18 +26,18 @@ export default function Header() {
             placeholder='Search'
             className='bg-transparent w-32 sm:w-64 md:w-96 focus:outline-none'
           />
-          <FaMagnifyingGlass />
+          <FaMagnifyingGlass className='fill-wenge' />
         </form>
         <nav>
           <ul className='flex items-center justify-center gap-8 text-xl'>
             <li className='nav-hover'>
               <Link to={routes.about}>
-                <FaRegLightbulb />
+                <FaRegLightbulb className='fill-wenge' />
               </Link>
             </li>
             <li className='nav-hover'>
               <Link to={routes.profile}>
-                <FaRegCircleUser />
+                <FaRegCircleUser className='fill-wenge' />
               </Link>
             </li>
           </ul>

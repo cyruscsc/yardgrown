@@ -30,8 +30,16 @@ body {
   @apply border border-linen rounded-lg p-3 focus:outline-grullo;
 }
 
+.button {
+  @apply rounded-lg p-3 font-medium uppercase hover:opacity-90 disabled:opacity-50 duration-300;
+}
+
 .auth-button {
-  @apply bg-grullo rounded-lg p-3 text-snow font-medium uppercase hover:opacity-90 disabled:opacity-50 duration-300;
+  @apply button bg-grullo text-snow;
+}
+
+.oauth-button {
+  @apply button bg-champagne text-snow fill-snow;
 }
 
 .auth-link-container {

@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { endpoints, routes } from '../constants';
+import OAuth from '../components/OAuth';
 
 export default function SignUp() {
   const [formData, setFormData] = useState({
@@ -85,6 +86,7 @@ export default function SignUp() {
         <button type='submit' disabled={loading} className='auth-button'>
           {loading ? 'Loading' : 'Sign Up'}
         </button>
+        <OAuth />
       </form>
       <div className='auth-link-container'>
         <p>Have an account?</p>

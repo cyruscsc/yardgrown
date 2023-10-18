@@ -16,6 +16,11 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    avatar: {
+      type: String,
+      default:
+        'https://api.dicebear.com/7.x/thumbs/svg?backgroundColor=FAF1E6&shapeColor=ABC4AA',
+    },
   },
   { timestamps: true }
 );
