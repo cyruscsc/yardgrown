@@ -1,13 +1,15 @@
 import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import { routes } from '../constants';
 import {
+  FaArrowRightToBracket,
   FaMagnifyingGlass,
-  FaRegCircleUser,
-  FaRegLightbulb,
+  FaNewspaper,
 } from 'react-icons/fa6';
 import logo from '../assets/yardgrown-wenge.png';
 
 export default function Header() {
+  const { currentUser } = useSelector((state) => state.user);
   return (
     <header className='bg-leaves text-wenge text-base font-medium'>
       <div className='flex items-center justify-between max-w-7xl mx-auto px-8 py-4'>
@@ -32,13 +34,23 @@ export default function Header() {
           <ul className='flex items-center justify-center gap-8 text-xl'>
             <li className='nav-hover'>
               <Link to={routes.about}>
-                <FaRegLightbulb className='fill-wenge' />
+                <FaNewspaper className='fill-wenge' />
               </Link>
             </li>
             <li className='nav-hover'>
-              <Link to={routes.profile}>
-                <FaRegCircleUser className='fill-wenge' />
-              </Link>
+              {currentUser ? (
+                <Link to={routes.profile}>
+                  <img
+                    src={currentUser.avatar}
+                    alt='profile'
+                    className='rounded-full h-8 w-8 object-cover object-center'
+                  />
+                </Link>
+              ) : (
+                <Link to={routes.signUp}>
+                  <FaArrowRightToBracket className='fill-wenge' />
+                </Link>
+              )}
             </li>
           </ul>
         </nav>
