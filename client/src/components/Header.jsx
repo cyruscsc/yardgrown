@@ -43,7 +43,7 @@ export default function Header() {
                   <img
                     src={currentUser.avatar}
                     alt='profile'
-                    className='rounded-full h-8 w-8 object-cover object-center'
+                    className='avatar h-8 w-8'
                   />
                 </Link>
               ) : (

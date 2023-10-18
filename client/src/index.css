@@ -49,3 +49,7 @@ body {
 .auth-link {
   @apply text-grullo;
 }
+
+.avatar {
+  @apply rounded-full object-cover object-center;
+}
