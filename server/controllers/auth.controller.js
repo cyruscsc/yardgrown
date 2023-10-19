@@ -1,26 +1,7 @@
 import bcryptjs from 'bcryptjs';
-import jwt from 'jsonwebtoken';
 import User from '../models/user.model.js';
 import { errorHandler } from '../utils/error.js';
-
-const signInUser = (user, res) => {
-  const token = jwt.sign(
-    {
-      id: user._id,
-      username: user.username,
-      email: user.email,
-    },
-    process.env.JWT_SECRET
-  );
-  const { password: pw, ...rest } = user._doc;
-  res
-    .cookie('access_token', token, {
-      httpOnly: true,
-      maxAge: 7 * 24 * 60 * 60 * 1000,
-    })
-    .status(200)
-    .json(rest);
-};
+import { signToken } from '../utils/signToken.js';
 
 export const signUp = async (req, res, next) => {
   const { username, email, password } = req.body;
@@ -41,7 +22,7 @@ export const signIn = async (req, res, next) => {
     if (!validUser) return next(errorHandler(404, 'User not found'));
     const validPassword = bcryptjs.compareSync(password, validUser.password);
     if (!validPassword) return next(errorHandler(401, 'Wrong crendentials'));
-    signInUser(validUser, res);
+    signToken(validUser, res);
   } catch (error) {
     next(error);
   }
@@ -52,7 +33,7 @@ export const google = async (req, res, next) => {
   try {
     const validUser = await User.findOne({ email });
     if (validUser) {
-      signInUser(validUser, res);
+      signToken(validUser, res);
     } else {
       const randomPassword =
         Math.random().toString(36).slice(-8) +
@@ -67,7 +48,7 @@ export const google = async (req, res, next) => {
         avatar,
       });
       newUser.save();
-      signInUser(newUser, res);
+      signToken(newUser, res);
     }
   } catch (error) {
     next(error);
