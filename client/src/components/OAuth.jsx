@@ -3,9 +3,9 @@ import { app } from '../firebase';
 import { endpoints, routes } from '../constants';
 import { useDispatch } from 'react-redux';
 import {
-  signInFailure,
-  signInStart,
-  signInSuccess,
+  userActionFailure,
+  userActionStart,
+  userActionSuccess,
 } from '../redux/user/userSlice';
 import { useNavigate } from 'react-router-dom';
 
@@ -14,7 +14,7 @@ export default function OAuth() {
   const navigate = useNavigate();
   const handleOAuthClick = async () => {
     try {
-      dispatch(signInStart());
+      dispatch(userActionStart());
       const provider = new GoogleAuthProvider();
       const auth = getAuth(app);
       const result = await signInWithPopup(auth, provider);
@@ -31,13 +31,13 @@ export default function OAuth() {
       });
       const data = await res.json();
       if (data.success === false) {
-        dispatch(signInFailure(data.message));
+        dispatch(userActionFailure(data.message));
         return;
       }
-      dispatch(signInSuccess(data));
+      dispatch(userActionSuccess(data));
       navigate(routes.home);
     } catch (error) {
-      dispatch(signInFailure(error));
+      console.log(error);
     }
   };
   return (

@@ -1,16 +1,18 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { endpoints, routes } from '../constants';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  userActionStart,
+  userActionSuccess,
+  userActionFailure,
+} from '../redux/user/userSlice';
 import OAuth from '../components/OAuth';
 
 export default function SignUp() {
-  const [formData, setFormData] = useState({
-    username: '',
-    email: '',
-    password: '',
-  });
-  const [error, setError] = useState(null);
-  const [loading, setLoading] = useState(false);
+  const [formData, setFormData] = useState({});
+  const { error, loading } = useSelector((state) => state.user);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -23,7 +25,7 @@ export default function SignUp() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      setLoading(true);
+      dispatch(userActionStart());
       const res = await fetch(endpoints.signUp, {
         method: 'POST',
         headers: {
@@ -37,8 +39,7 @@ export default function SignUp() {
           ...formData,
           password: '',
         });
-        setError(data.message);
-        setLoading(false);
+        dispatch(userActionFailure(data.message));
         return;
       }
       setFormData({
@@ -46,12 +47,10 @@ export default function SignUp() {
         email: '',
         password: '',
       });
-      setError(null);
-      setLoading(false);
+      dispatch(userActionSuccess(data));
       navigate(routes.signIn);
     } catch (error) {
-      setError(error);
-      setLoading(false);
+      dispatch(userActionFailure(error.message));
     }
   };
 
@@ -94,7 +93,7 @@ export default function SignUp() {
           Sign in
         </Link>
       </div>
-      {error && <p className=' text-pink'>{error}</p>}
+      {error && <p className='text-pink'>{error}</p>}
     </div>
   );
 }

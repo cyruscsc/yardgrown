@@ -4,10 +4,10 @@ import { errorHandler } from '../utils/error.js';
 import { signToken } from '../utils/signToken.js';
 
 export const signUp = async (req, res, next) => {
-  const { username, email, password } = req.body;
-  const hashedPassword = bcryptjs.hashSync(password, 10);
-  const newUser = new User({ username, email, password: hashedPassword });
   try {
+    const { username, email, password } = req.body;
+    const hashedPassword = bcryptjs.hashSync(password, 10);
+    const newUser = new User({ username, email, password: hashedPassword });
     await newUser.save();
     res.status(201).json('User created successfully');
   } catch (error) {
@@ -16,8 +16,8 @@ export const signUp = async (req, res, next) => {
 };
 
 export const signIn = async (req, res, next) => {
-  const { email, password } = req.body;
   try {
+    const { email, password } = req.body;
     const validUser = await User.findOne({ email });
     if (!validUser) return next(errorHandler(404, 'User not found'));
     const validPassword = bcryptjs.compareSync(password, validUser.password);
@@ -29,8 +29,8 @@ export const signIn = async (req, res, next) => {
 };
 
 export const google = async (req, res, next) => {
-  const { displayName, email, avatar } = req.body;
   try {
+    const { displayName, email, avatar } = req.body;
     const validUser = await User.findOne({ email });
     if (validUser) {
       signToken(validUser, res);

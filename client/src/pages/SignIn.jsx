@@ -3,9 +3,9 @@ import { Link, useNavigate } from 'react-router-dom';
 import { endpoints, routes } from '../constants';
 import { useDispatch, useSelector } from 'react-redux';
 import {
-  signInStart,
-  signInSuccess,
-  signInFailure,
+  userActionStart,
+  userActionSuccess,
+  userActionFailure,
 } from '../redux/user/userSlice';
 import OAuth from '../components/OAuth';
 
@@ -15,8 +15,8 @@ export default function SignIn() {
     password: '',
   });
   const { error, loading } = useSelector((state) => state.user);
-  const navigate = useNavigate();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     setFormData({
@@ -28,7 +28,7 @@ export default function SignIn() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      dispatch(signInStart());
+      dispatch(userActionStart());
       const res = await fetch(endpoints.signIn, {
         method: 'POST',
         headers: {
@@ -42,17 +42,17 @@ export default function SignIn() {
           ...formData,
           password: '',
         });
-        dispatch(signInFailure(data.message));
+        dispatch(userActionFailure(data.message));
         return;
       }
       setFormData({
         email: '',
         password: '',
       });
-      dispatch(signInSuccess(data));
+      dispatch(userActionSuccess(data));
       navigate(routes.home);
     } catch (error) {
-      dispatch(signInFailure(error));
+      dispatch(userActionFailure(error.message));
     }
   };
 
@@ -87,7 +87,7 @@ export default function SignIn() {
           Sign up
         </Link>
       </div>
-      {error && <p className=' text-pink'>{error}</p>}
+      {error && <p className='text-pink'>{error}</p>}
     </div>
   );
 }
