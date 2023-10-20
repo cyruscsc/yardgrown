@@ -81,6 +81,21 @@ export default function Profile() {
     );
   };
 
+  const handleSignOut = async () => {
+    try {
+      const res = await fetch(endpoints.signOut);
+      const data = res.json();
+      if (data.success === false) {
+        setFormData({});
+        dispatch(userActionFailure(data.message));
+        return;
+      }
+      dispatch(userActionSuccess(data));
+    } catch (error) {
+      dispatch(userActionFailure(error.message));
+    }
+  };
+
   const handleDeleteUser = async () => {
     try {
       dispatch(userActionStart());
@@ -158,7 +173,9 @@ export default function Profile() {
         <span onClick={handleDeleteUser} className='cursor-pointer text-pink'>
           Delete account
         </span>
-        <span className='cursor-pointer text-grullo'>Sign out</span>
+        <span onClick={handleSignOut} className='cursor-pointer text-grullo'>
+          Sign out
+        </span>
       </div>
       {success && <p className='text-leaves'>User updated successfully!</p>}
       {error && <p className='text-pink'>{error}</p>}

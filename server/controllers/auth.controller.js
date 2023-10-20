@@ -28,6 +28,17 @@ export const signIn = async (req, res, next) => {
   }
 };
 
+export const signOut = (req, res, next) => {
+  try {
+    res
+      .clearCookie('access_token')
+      .status(200)
+      .json({ message: 'Signed out successfully' });
+  } catch (error) {
+    next(error);
+  }
+};
+
 export const google = async (req, res, next) => {
   try {
     const { displayName, email, avatar } = req.body;

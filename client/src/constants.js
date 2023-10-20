@@ -10,6 +10,7 @@ export const routes = {
 export const endpoints = {
   signUp: '/api/auth/sign-up',
   signIn: '/api/auth/sign-in',
+  signOut: '/api/auth/sign-out',
   google: '/api/auth/google',
   update: '/api/user/update',
   delete: '/api/user/delete',
