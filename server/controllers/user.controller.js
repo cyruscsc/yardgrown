@@ -3,7 +3,7 @@ import User from '../models/user.model.js';
 import { errorHandler } from '../utils/error.js';
 import { signToken } from '../utils/signToken.js';
 
-export const update = async (req, res, next) => {
+export const updateUser = async (req, res, next) => {
   if (req.user.id !== req.params.id)
     return next(errorHandler(401, 'User ID Mismatch'));
   try {
@@ -22,6 +22,20 @@ export const update = async (req, res, next) => {
       { new: true }
     );
     signToken(updatedUser, res);
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const deleteUser = async (req, res, next) => {
+  if (req.user.id !== req.params.id)
+    return next(errorHandler(401, 'User ID Mismatch'));
+  try {
+    await User.findByIdAndDelete(req.params.id);
+    res
+      .clearCookie('access_token')
+      .status(200)
+      .json({ message: 'User has been deleted' });
   } catch (error) {
     next(error);
   }

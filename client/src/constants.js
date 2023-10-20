@@ -12,4 +12,5 @@ export const endpoints = {
   signIn: '/api/auth/sign-in',
   google: '/api/auth/google',
   update: '/api/user/update',
+  delete: '/api/user/delete',
 };

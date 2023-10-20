@@ -81,6 +81,24 @@ export default function Profile() {
     );
   };
 
+  const handleDeleteUser = async () => {
+    try {
+      dispatch(userActionStart());
+      const res = await fetch(endpoints.delete + `/${currentUser._id}`, {
+        method: 'DELETE',
+      });
+      const data = await res.json();
+      if (data.success === false) {
+        setFormData({});
+        dispatch(userActionFailure(data.message));
+        return;
+      }
+      dispatch(userActionSuccess(data));
+    } catch (error) {
+      dispatch(userActionFailure(error.message));
+    }
+  };
+
   return (
     <div className='auth-container'>
       <h1 className='title text-center'>Profile</h1>
@@ -137,7 +155,9 @@ export default function Profile() {
         </button>
       </form>
       <div className='flex items-center justify-between my-4'>
-        <span className='cursor-pointer text-pink'>Delete account</span>
+        <span onClick={handleDeleteUser} className='cursor-pointer text-pink'>
+          Delete account
+        </span>
         <span className='cursor-pointer text-grullo'>Sign out</span>
       </div>
       {success && <p className='text-leaves'>User updated successfully!</p>}
