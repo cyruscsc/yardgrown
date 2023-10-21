@@ -4,15 +4,16 @@ import { routes } from '../constants';
 import {
   FaArrowRightToBracket,
   FaMagnifyingGlass,
-  FaNewspaper,
+  FaRegCircleQuestion,
+  FaRegSquarePlus,
 } from 'react-icons/fa6';
 import logo from '../assets/yardgrown-wenge.png';
 
 export default function Header() {
   const { currentUser } = useSelector((state) => state.user);
   return (
-    <header className='bg-leaves text-wenge text-base font-medium'>
-      <div className='flex items-center justify-between max-w-7xl mx-auto px-8 py-4'>
+    <header className='bg-leaves font-medium'>
+      <div className='flex items-center justify-between max-w-7xl mx-auto px-4 py-4'>
         <Link
           to={routes.home}
           className='flex gap-2 items-center justify-start text-xl'
@@ -26,29 +27,34 @@ export default function Header() {
           <input
             type='text'
             placeholder='Search'
-            className='bg-transparent w-32 sm:w-64 md:w-96 focus:outline-none'
+            className='bg-transparent w-28 sm:w-60 md:w-96 focus:outline-none'
           />
-          <FaMagnifyingGlass className='fill-wenge' />
+          <FaMagnifyingGlass className='fill-wenge icon-hover' />
         </form>
         <nav>
-          <ul className='flex items-center justify-center gap-8 text-xl'>
-            <li className='nav-hover'>
-              <Link to={routes.about}>
-                <FaNewspaper className='fill-wenge' />
+          <ul className='flex items-center justify-center gap-4 sm:gap-6 md:gap-8 text-2xl'>
+            <li>
+              <Link to={routes.create}>
+                <FaRegSquarePlus className='fill-wenge icon-hover' />
               </Link>
             </li>
-            <li className='nav-hover'>
+            <li>
+              <Link to={routes.about}>
+                <FaRegCircleQuestion className='fill-wenge icon-hover' />
+              </Link>
+            </li>
+            <li>
               {currentUser ? (
                 <Link to={routes.profile}>
                   <img
                     src={currentUser.avatar}
                     alt='profile'
-                    className='avatar h-8 w-8'
+                    className='avatar h-6 w-6'
                   />
                 </Link>
               ) : (
                 <Link to={routes.signUp}>
-                  <FaArrowRightToBracket className='fill-wenge' />
+                  <FaArrowRightToBracket className='fill-wenge  icon-hover' />
                 </Link>
               )}
             </li>

@@ -7,6 +7,7 @@ import Profile from './pages/Profile';
 import About from './pages/About';
 import Header from './components/Header';
 import PrivateRoute from './components/PrivateRoute';
+import Create from './pages/Create';
 
 export default function App() {
   return (
@@ -19,8 +20,8 @@ export default function App() {
         <Route path={routes.signIn} element={<SignIn />} />
         <Route element={<PrivateRoute />}>
           <Route path={routes.profile} element={<Profile />} />
+          <Route path={routes.create} element={<Create />} />
         </Route>
-        {/* <Route path={routes.signOut} element={<SignOut />} /> */}
       </Routes>
     </BrowserRouter>
   );

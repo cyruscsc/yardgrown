@@ -14,8 +14,8 @@ body {
   @apply text-3xl font-medium my-8;
 }
 
-.nav-hover {
-  @apply hover:underline hover:text-grullo duration-200;
+.icon-hover {
+  @apply hover:fill-linen duration-200;
 }
 
 .auth-container {
@@ -39,7 +39,7 @@ body {
 }
 
 .oauth-button {
-  @apply button bg-champagne text-snow fill-snow;
+  @apply button bg-champagne text-snow;
 }
 
 .auth-link-container {
@@ -52,4 +52,16 @@ body {
 
 .avatar {
   @apply rounded-full object-cover object-center;
+}
+
+.create-form-section {
+  @apply flex flex-col gap-4 w-full;
+}
+
+.create-input-container {
+  @apply flex gap-4 items-center w-full;
+}
+
+.create-input {
+  @apply w-full p-3 border border-linen rounded-lg focus:outline-grullo;
 }

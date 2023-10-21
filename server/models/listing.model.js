@@ -18,12 +18,27 @@ const listingSchema = new mongoose.Schema(
       type: Number,
       required: true,
     },
+    delivery: {
+      type: Boolean,
+      required: true,
+    },
+    pickup: {
+      type: Boolean,
+      required: true,
+    },
+    city: {
+      type: String,
+      required: true,
+    },
+    phone: {
+      type: String,
+    },
+    email: {
+      type: String,
+    },
     imageUrls: {
       type: Array,
       required: true,
-    },
-    tags: {
-      type: Array,
     },
     userRef: {
       type: String,
