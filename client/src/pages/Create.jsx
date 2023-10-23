@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { categories } from '../constants';
+import { categories, endpoints } from '../constants';
 import {
   getDownloadURL,
   getStorage,
@@ -7,12 +7,27 @@ import {
   uploadBytesResumable,
 } from 'firebase/storage';
 import { app } from '../firebase';
+import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 export default function Create() {
+  const navigate = useNavigate();
+  const { currentUser } = useSelector((state) => state.user);
   const [files, setFiles] = useState([]);
   const [uploading, setUploading] = useState(false);
   const [uploadError, setUploadError] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
   const [formData, setFormData] = useState({
+    title: '',
+    description: '',
+    category: '',
+    price: '',
+    delivery: false,
+    pickup: false,
+    city: '',
+    phone: '',
+    email: '',
     imageUrls: [],
   });
 
@@ -33,11 +48,11 @@ export default function Create() {
         })
         .catch((err) => {
           setUploading(false);
-          setUploadError('Upload failed, maximum 2 MB per image');
+          setUploadError('Upload failed, please try again');
         });
     } else {
       setUploading(false);
-      setUploadError('Maximum 6 images only');
+      setUploadError('Please upload at most 6 images');
     }
   };
 
@@ -67,10 +82,54 @@ export default function Create() {
     });
   };
 
+  const handleChange = (e) => {
+    if (
+      e.target.type === 'text' ||
+      e.target.type === 'textarea' ||
+      e.target.type === 'number' ||
+      e.target.type === 'email' ||
+      e.target.type === 'select-one'
+    )
+      setFormData({ ...formData, [e.target.id]: e.target.value });
+    if (e.target.type === 'checkbox')
+      setFormData({ ...formData, [e.target.id]: e.target.checked });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      setLoading(true);
+      setError(false);
+      if (formData.imageUrls.length < 1) {
+        setError('Please upload at least 1 image');
+        setLoading(false);
+        return;
+      }
+      const res = await fetch(endpoints.createListing, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ ...formData, userRef: currentUser._id }),
+      });
+      const data = await res.json();
+      if (data.success === false) {
+        setError(data.message);
+        setLoading(false);
+        return;
+      }
+      setLoading(false);
+      navigate(`/market/${data._id}`);
+    } catch (error) {
+      setLoading(false);
+      setError(error.message);
+    }
+  };
+
   return (
     <main className='max-w-7xl px-4 mx-auto'>
       <h1 className='title'>Bring a product to the market</h1>
-      <form className='flex flex-col md:flex-row gap-4'>
+      <form onSubmit={handleSubmit} className='flex flex-col md:flex-row gap-4'>
         <div className='create-form-section'>
           <input
             type='text'
@@ -78,6 +137,8 @@ export default function Create() {
             minLength={1}
             maxLength={60}
             required
+            value={formData.title}
+            onChange={handleChange}
             id='title'
             className='create-input'
           />
@@ -88,25 +149,35 @@ export default function Create() {
             minLength={1}
             maxLength={160}
             required
+            value={formData.description}
+            onChange={handleChange}
             id='description'
             className='create-input'
           />
           <div className='create-input-container'>
-            <label htmlFor='category'>Category: </label>
-            <select required id='category' className='create-input'>
+            <select
+              required
+              id='category'
+              value={formData.category}
+              onChange={handleChange}
+              className='create-input'
+            >
+              <option value=''>Category</option>
               {categories.map((category) => (
-                <option value={category}>
+                <option key={category} value={category}>
                   {category.charAt(0).toUpperCase() + category.slice(1)}
                 </option>
               ))}
             </select>
-            <label htmlFor='price'>Price: </label>
             <input
               type='number'
               placeholder='Price'
               min={0}
               max={1000}
+              step={0.05}
               required
+              value={formData.price}
+              onChange={handleChange}
               id='price'
               className='create-input'
             />
@@ -114,17 +185,31 @@ export default function Create() {
           <div className='create-input-container'>
             <div className='create-input flex justify-start gap-4 md:gap-8'>
               <div className='flex gap-2'>
-                <input type='checkbox' id='delivery' className='w-4' />
+                <input
+                  type='checkbox'
+                  checked={formData.delivery}
+                  onChange={handleChange}
+                  id='delivery'
+                  className='w-4'
+                />
                 <label htmlFor='delivery'>Delivery</label>
               </div>
               <div className='flex gap-2'>
-                <input type='checkbox' id='pickup' className='w-4' />
+                <input
+                  type='checkbox'
+                  checked={formData.pickup}
+                  onChange={handleChange}
+                  id='pickup'
+                  className='w-4'
+                />
                 <label htmlFor='pickup'>Pickup</label>
               </div>
             </div>
             <input
               type='text'
               placeholder='City'
+              value={formData.city}
+              onChange={handleChange}
               id='city'
               className='create-input'
             />
@@ -133,6 +218,8 @@ export default function Create() {
             <input
               type='text'
               placeholder='Phone number'
+              value={formData.phone}
+              onChange={handleChange}
               id='phone'
               className='create-input'
             />
@@ -141,6 +228,8 @@ export default function Create() {
             <input
               type='email'
               placeholder='Email'
+              value={formData.email}
+              onChange={handleChange}
               id='email'
               className='create-input'
             />
@@ -162,7 +251,7 @@ export default function Create() {
             />
             <button
               type='button'
-              disabled={uploading}
+              disabled={uploading || loading}
               onClick={handleFilesUpload}
               className='rounded-lg p-3 font-medium uppercase border border-leaves text-leaves hover:bg-leaves hover:text-snow duration-300'
             >
@@ -173,8 +262,8 @@ export default function Create() {
           {formData.imageUrls.length > 0 &&
             formData.imageUrls.map((url, index) => (
               <div
-                key={index}
-                className='flex items-center justify-between border border-leaves rounded-lg p-3 '
+                key={url}
+                className='flex items-center justify-between border border-linen rounded-lg p-3 '
               >
                 <img
                   src={url}
@@ -190,7 +279,10 @@ export default function Create() {
                 </button>
               </div>
             ))}
-          <button className='auth-button'>Create Listing</button>
+          <button disabled={uploading || loading} className='auth-button'>
+            {loading ? 'Loading' : 'Create Listing'}
+          </button>
+          {error && <p className='text-pink'>{error}</p>}
         </div>
       </form>
     </main>

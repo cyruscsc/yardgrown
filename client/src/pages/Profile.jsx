@@ -39,7 +39,7 @@ export default function Profile() {
     e.preventDefault();
     try {
       dispatch(userActionStart());
-      const res = await fetch(endpoints.update + `/${currentUser._id}`, {
+      const res = await fetch(endpoints.updateUser + `/${currentUser._id}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -99,7 +99,7 @@ export default function Profile() {
   const handleDeleteUser = async () => {
     try {
       dispatch(userActionStart());
-      const res = await fetch(endpoints.delete + `/${currentUser._id}`, {
+      const res = await fetch(endpoints.deleteUser + `/${currentUser._id}`, {
         method: 'DELETE',
       });
       const data = await res.json();
@@ -121,7 +121,7 @@ export default function Profile() {
         <img
           src={formData.avatar || currentUser.avatar}
           onClick={() => fileRef.current.click()}
-          className='avatar h-48 w-48 mx-auto'
+          className='avatar h-48 w-48 mx-auto cursor-pointer'
         />
         <input
           type='file'

@@ -13,8 +13,9 @@ export const endpoints = {
   signIn: '/api/auth/sign-in',
   signOut: '/api/auth/sign-out',
   google: '/api/auth/google',
-  update: '/api/user/update',
-  delete: '/api/user/delete',
+  updateUser: '/api/user/update',
+  deleteUser: '/api/user/delete',
+  createListing: 'api/listing/create',
 };
 
 export const categories = [
