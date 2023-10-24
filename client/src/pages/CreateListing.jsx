@@ -121,8 +121,8 @@ export default function CreateListing() {
       setLoading(false);
       navigate(`/market/${data._id}`);
     } catch (error) {
-      setLoading(false);
       setError(error.message);
+      setLoading(false);
     }
   };
 

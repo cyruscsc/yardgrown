@@ -6,8 +6,10 @@ import { Link } from 'react-router-dom';
 
 export default function MyListings() {
   const { currentUser } = useSelector((state) => state.user);
+  const [loading, setLoading] = useState(false);
   const [myListings, setMyListings] = useState([]);
   const [getMyListingsError, setGetMyListingsError] = useState(false);
+  const [deleteListingError, setDeleteListingError] = useState(false);
 
   useEffect(() => {
     getMyListings();
@@ -25,9 +27,32 @@ export default function MyListings() {
     }
   };
 
+  const handleDeleteListing = async (id) => {
+    try {
+      setLoading(true);
+      setDeleteListingError(false);
+      const res = await fetch(endpoints.deleteListing + `/${id}`, {
+        method: 'DELETE',
+      });
+      const data = await res.json();
+      if (data.success === false) {
+        setDeleteListingError(true);
+        setLoading(false);
+        return;
+      }
+      setMyListings((prev) => prev.filter((listing) => listing._id !== id));
+    } catch (error) {
+      setDeleteListingError(true);
+      setLoading(false);
+    }
+  };
+
   return (
     <main className='max-w-5xl px-4 mx-auto'>
       <h1 className='title text-center'>My Listings</h1>
+      {deleteListingError && (
+        <p className='text-pink'>Failed to delete listings, please try again</p>
+      )}
       <div className=' grid grid-cols-1 md:grid-cols-2 gap-4'>
         {myListings.length > 0 ? (
           myListings.map((listing) => (
@@ -45,10 +70,14 @@ export default function MyListings() {
                 <p>{new Date(listing.createdAt).toLocaleDateString()}</p>
               </Link>
               <div className='flex flex-col gap-4 text-lg'>
-                <button>
+                <button type='button' disabled={loading}>
                   <FaPencil className='fill-grullo' />
                 </button>
-                <button>
+                <button
+                  type='button'
+                  disabled={loading}
+                  onClick={() => handleDeleteListing(listing._id)}
+                >
                   <FaEraser className='fill-pink' />
                 </button>
               </div>

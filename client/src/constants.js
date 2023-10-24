@@ -10,14 +10,20 @@ export const routes = {
 };
 
 export const endpoints = {
+  // auth endpoints
   signUp: '/api/auth/sign-up',
   signIn: '/api/auth/sign-in',
   signOut: '/api/auth/sign-out',
   google: '/api/auth/google',
+
+  // user endpoints
   updateUser: '/api/user/update',
   deleteUser: '/api/user/delete',
-  createListing: 'api/listing/create',
   userListings: 'api/user/listings',
+
+  // listing endpoints
+  createListing: 'api/listing/create',
+  deleteListing: 'api/listing/delete',
 };
 
 export const categories = [
