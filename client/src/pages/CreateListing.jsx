@@ -10,7 +10,7 @@ import { app } from '../firebase';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
-export default function Create() {
+export default function CreateListing() {
   const navigate = useNavigate();
   const { currentUser } = useSelector((state) => state.user);
   const [files, setFiles] = useState([]);
@@ -268,7 +268,7 @@ export default function Create() {
                 <img
                   src={url}
                   alt='Product Image'
-                  className='h-24 w-24 object-contain rounded-lg'
+                  className='h-24 w-36 object-contain object-center rounded-lg'
                 />
                 <button
                   type='button'

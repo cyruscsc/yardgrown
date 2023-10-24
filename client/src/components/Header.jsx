@@ -4,8 +4,8 @@ import { routes } from '../constants';
 import {
   FaArrowRightToBracket,
   FaMagnifyingGlass,
-  FaRegCircleQuestion,
-  FaRegSquarePlus,
+  FaRegPenToSquare,
+  FaRegRectangleList,
 } from 'react-icons/fa6';
 import logo from '../assets/yardgrown-wenge.png';
 
@@ -34,13 +34,13 @@ export default function Header() {
         <nav>
           <ul className='flex items-center justify-center gap-4 sm:gap-6 md:gap-8 text-2xl'>
             <li>
-              <Link to={routes.create}>
-                <FaRegSquarePlus className='fill-wenge icon-hover' />
+              <Link to={routes.createListing}>
+                <FaRegPenToSquare className='fill-wenge icon-hover' />
               </Link>
             </li>
             <li>
-              <Link to={routes.about}>
-                <FaRegCircleQuestion className='fill-wenge icon-hover' />
+              <Link to={routes.myListings}>
+                <FaRegRectangleList className='fill-wenge icon-hover' />
               </Link>
             </li>
             <li>
