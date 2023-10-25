@@ -26,7 +26,6 @@ export default function CreateListing() {
     delivery: false,
     pickup: false,
     city: '',
-    phone: '',
     email: '',
     imageUrls: [],
   });
@@ -145,7 +144,7 @@ export default function CreateListing() {
           <textarea
             type='text'
             placeholder='Description'
-            rows={3}
+            rows={10}
             minLength={1}
             maxLength={2000}
             required
@@ -209,18 +208,9 @@ export default function CreateListing() {
               type='text'
               placeholder='City'
               value={formData.city}
+              required
               onChange={handleChange}
               id='city'
-              className='create-input'
-            />
-          </div>
-          <div className='create-input-container'>
-            <input
-              type='text'
-              placeholder='Phone number'
-              value={formData.phone}
-              onChange={handleChange}
-              id='phone'
               className='create-input'
             />
           </div>
@@ -229,6 +219,7 @@ export default function CreateListing() {
               type='email'
               placeholder='Email'
               value={formData.email}
+              required
               onChange={handleChange}
               id='email'
               className='create-input'

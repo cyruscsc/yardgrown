@@ -1,24 +1,28 @@
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { endpoints } from '../constants';
 import {
   FaBagShopping,
-  FaEnvelope,
+  FaCheck,
   FaLocationDot,
-  FaPhone,
+  FaPaperPlane,
+  FaShare,
   FaTruckFast,
 } from 'react-icons/fa6';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation } from 'swiper/modules';
 import SwiperCore from 'swiper';
 import 'swiper/css/bundle';
+import { useSelector } from 'react-redux';
 
 export default function Listing() {
   SwiperCore.use([Navigation]);
   const params = useParams();
+  const { currentUser } = useSelector((state) => state.user);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const [listing, setListing] = useState(null);
+  const [copied, setCopied] = useState(false);
 
   useEffect(() => {
     retrieveListing();
@@ -69,6 +73,33 @@ export default function Listing() {
               </SwiperSlide>
             ))}
           </Swiper>
+          <button
+            type='button'
+            onClick={() => {
+              navigator.clipboard.writeText(window.location.href);
+              setCopied(true);
+              setTimeout(() => setCopied(false), 3000);
+            }}
+            className='fixed-button top-32 right-4 '
+          >
+            {copied ? (
+              <FaCheck className='fill-leaves' />
+            ) : (
+              <FaShare className='fill-wenge' />
+            )}
+          </button>
+          {currentUser && currentUser._id != listing.userRef && (
+            <Link
+              type='button'
+              to={
+                `mailto:${listing.email}` +
+                `?subject=YG: I'm interested! ${listing.title}`
+              }
+              className='fixed-button top-48 right-4 '
+            >
+              <FaPaperPlane />
+            </Link>
+          )}
           <article className='max-w-5xl p-4 mx-auto'>
             <h1 className='title flex flex-col gap-4 md:flex-row md:justify-between'>
               <span>{listing.title}</span>{' '}
@@ -98,20 +129,6 @@ export default function Listing() {
                 )}
               </div>
               <p>{listing.description}</p>
-              <div className='flex items-center gap-8'>
-                {listing.phone && (
-                  <div className='flex items-center gap-2'>
-                    <FaPhone className='fill-xanadu' />
-                    <span className='text-xanadu'>{listing.phone}</span>
-                  </div>
-                )}
-                {listing.email && (
-                  <div className='flex items-center gap-2'>
-                    <FaEnvelope className='fill-xanadu' />
-                    <span className='text-xanadu'>{listing.email}</span>
-                  </div>
-                )}
-              </div>
             </div>
           </article>
         </div>

@@ -65,3 +65,7 @@ body {
 .create-input {
   @apply w-full p-3 border border-linen rounded-lg focus:outline-grullo;
 }
+
+.fixed-button {
+  @apply fixed z-50 bg-snow shadow-md rounded-full text-lg p-3;
+}
