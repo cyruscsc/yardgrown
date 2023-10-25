@@ -147,7 +147,7 @@ export default function CreateListing() {
             placeholder='Description'
             rows={3}
             minLength={1}
-            maxLength={160}
+            maxLength={2000}
             required
             value={formData.description}
             onChange={handleChange}
@@ -267,7 +267,7 @@ export default function CreateListing() {
                 <img
                   src={url}
                   alt='Product Image'
-                  className='h-24 w-36 object-contain object-center rounded-lg'
+                  className='h-24 w-36 object-cover object-center rounded-lg'
                 />
                 <button
                   type='button'

@@ -64,9 +64,9 @@ export default function MyListings() {
               <img
                 src={listing.imageUrls[0]}
                 alt={listing.title}
-                className='h-24 w-36 object-contain object-center rounded-lg'
+                className='h-24 w-36 object-cover object-center rounded-lg'
               />
-              <Link>
+              <Link to={routes.market + `/${listing._id}`}>
                 <h3 className='text-xl font-medium'>{listing.title}</h3>
                 <p>{new Date(listing.createdAt).toLocaleDateString()}</p>
               </Link>
