@@ -1,21 +1,22 @@
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { endpoints } from '../constants';
+import { endpoints, routes } from '../constants';
 import { FaEraser, FaPencil } from 'react-icons/fa6';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 export default function MyListings() {
   const { currentUser } = useSelector((state) => state.user);
+  const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [myListings, setMyListings] = useState([]);
   const [getMyListingsError, setGetMyListingsError] = useState(false);
   const [deleteListingError, setDeleteListingError] = useState(false);
 
   useEffect(() => {
-    getMyListings();
+    retrieveMyListings();
   }, []);
 
-  const getMyListings = async () => {
+  const retrieveMyListings = async () => {
     try {
       setGetMyListingsError(false);
       const res = await fetch(endpoints.userListings + `/${currentUser._id}`);
@@ -70,7 +71,13 @@ export default function MyListings() {
                 <p>{new Date(listing.createdAt).toLocaleDateString()}</p>
               </Link>
               <div className='flex flex-col gap-4 text-lg'>
-                <button type='button' disabled={loading}>
+                <button
+                  type='button'
+                  disabled={loading}
+                  onClick={() =>
+                    navigate(routes.editListing + `/${listing._id}`)
+                  }
+                >
                   <FaPencil className='fill-grullo' />
                 </button>
                 <button

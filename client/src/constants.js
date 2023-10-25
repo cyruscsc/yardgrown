@@ -6,6 +6,7 @@ export const routes = {
   signOut: '/sign-out',
   profile: '/profile',
   createListing: '/create-listing',
+  editListing: '/edit-listing',
   myListings: '/my-listings',
 };
 
@@ -19,11 +20,13 @@ export const endpoints = {
   // user endpoints
   updateUser: '/api/user/update',
   deleteUser: '/api/user/delete',
-  userListings: 'api/user/listings',
+  userListings: '/api/user/listings',
 
   // listing endpoints
-  createListing: 'api/listing/create',
-  deleteListing: 'api/listing/delete',
+  retrieveListing: '/api/listing/retrieve',
+  createListing: '/api/listing/create',
+  updateListing: '/api/listing/update',
+  deleteListing: '/api/listing/delete',
 };
 
 export const categories = [

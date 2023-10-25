@@ -42,7 +42,7 @@ export const deleteUser = async (req, res, next) => {
   }
 };
 
-export const getUserListings = async (req, res, next) => {
+export const retrieveUserListings = async (req, res, next) => {
   if (req.user.id !== req.params.id)
     return next(errorHandler(401, 'User ID Mismatch'));
   try {

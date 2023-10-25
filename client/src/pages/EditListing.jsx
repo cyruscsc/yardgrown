@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { categories, endpoints } from '../constants';
 import {
   getDownloadURL,
@@ -7,11 +7,12 @@ import {
   uploadBytesResumable,
 } from 'firebase/storage';
 import { app } from '../firebase';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
-export default function CreateListing() {
+export default function EditListing() {
   const navigate = useNavigate();
+  const params = useParams();
   const { currentUser } = useSelector((state) => state.user);
   const [files, setFiles] = useState([]);
   const [uploading, setUploading] = useState(false);
@@ -30,6 +31,21 @@ export default function CreateListing() {
     email: '',
     imageUrls: [],
   });
+
+  useEffect(() => {
+    retrieveListing();
+  }, []);
+
+  const retrieveListing = async () => {
+    try {
+      const res = await fetch(endpoints.retrieveListing + `/${params.id}`);
+      const data = await res.json();
+      if (data.success === false) return setError(data.message);
+      setFormData(data);
+    } catch (error) {
+      setError(error.message);
+    }
+  };
 
   const handleFilesUpload = () => {
     if (files.length > 0 && files.length + formData.imageUrls.length < 7) {
@@ -105,7 +121,7 @@ export default function CreateListing() {
         setLoading(false);
         return;
       }
-      const res = await fetch(endpoints.createListing, {
+      const res = await fetch(endpoints.updateListing + `/${params.id}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -279,7 +295,7 @@ export default function CreateListing() {
               </div>
             ))}
           <button disabled={uploading || loading} className='auth-button'>
-            {loading ? 'Loading' : 'Create Listing'}
+            {loading ? 'Loading' : 'Update Listing'}
           </button>
           {error && <p className='text-pink'>{error}</p>}
         </div>
