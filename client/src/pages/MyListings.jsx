@@ -66,7 +66,7 @@ export default function MyListings() {
                 alt={listing.title}
                 className='h-24 w-36 object-cover object-center rounded-lg'
               />
-              <Link to={routes.market + `/${listing._id}`}>
+              <Link to={routes.listing + `/${listing._id}`}>
                 <h3 className='text-xl font-medium'>{listing.title}</h3>
                 <p>{new Date(listing.createdAt).toLocaleDateString()}</p>
               </Link>

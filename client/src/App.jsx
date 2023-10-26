@@ -19,7 +19,7 @@ export default function App() {
       <Routes>
         <Route path={routes.home} element={<Home />} />
         <Route path={routes.about} element={<About />} />
-        <Route path={routes.market + '/:id'} element={<Listing />} />
+        <Route path={routes.listing + '/:id'} element={<Listing />} />
         <Route path={routes.signUp} element={<SignUp />} />
         <Route path={routes.signIn} element={<SignIn />} />
         <Route element={<PrivateRoute />}>

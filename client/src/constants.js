@@ -6,6 +6,7 @@ export const routes = {
   signIn: '/sign-in',
   signOut: '/sign-out',
   profile: '/profile',
+  listing: '/listing',
   createListing: '/create-listing',
   editListing: '/edit-listing',
   myListings: '/my-listings',
