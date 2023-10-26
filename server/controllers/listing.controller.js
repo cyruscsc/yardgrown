@@ -10,6 +10,31 @@ export const createListing = async (req, res, next) => {
   }
 };
 
+export const retrieveListings = async (req, res, next) => {
+  try {
+    const limit = parseInt(req.query.limit) || 9;
+    const startIndex = parseInt(req.query.startIndex) || 0;
+    const sort = req.query.sort || 'createdAt';
+    const order = req.query.order || 'desc';
+
+    const { keywords, category, city, delivery, pickup } = req.query;
+    const query = {};
+    if (keywords) query.title = { $regex: keywords, $options: 'i' };
+    if (category) query.category = category;
+    if (city) query.city = city;
+    if (delivery) query.delivery = delivery;
+    if (pickup) query.pickup = pickup;
+
+    const listings = await Listing.find(query)
+      .sort({ [sort]: order })
+      .limit(limit)
+      .skip(startIndex);
+    res.status(200).json(listings);
+  } catch (error) {
+    next(error);
+  }
+};
+
 export const retrieveListing = async (req, res, next) => {
   try {
     const listing = await Listing.findById(req.params.id);
