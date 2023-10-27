@@ -14,8 +14,8 @@ body {
   @apply text-3xl font-medium my-8;
 }
 
-.icon-hover {
-  @apply hover:fill-linen duration-200;
+.nav-hover {
+  @apply hover:fill-xanadu duration-300;
 }
 
 .auth-container {

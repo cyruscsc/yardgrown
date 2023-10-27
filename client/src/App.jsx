@@ -11,6 +11,7 @@ import CreateListing from './pages/CreateListing';
 import MyListings from './pages/MyListings';
 import EditListing from './pages/EditListing';
 import Listing from './pages/Listing';
+import Market from './pages/Market';
 
 export default function App() {
   return (
@@ -19,6 +20,7 @@ export default function App() {
       <Routes>
         <Route path={routes.home} element={<Home />} />
         <Route path={routes.about} element={<About />} />
+        <Route path={routes.market} element={<Market />} />
         <Route path={routes.listing + '/:id'} element={<Listing />} />
         <Route path={routes.signUp} element={<SignUp />} />
         <Route path={routes.signIn} element={<SignIn />} />
