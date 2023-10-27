@@ -49,7 +49,7 @@ export default function MyListings() {
   };
 
   return (
-    <main className='max-w-5xl px-4 mx-auto'>
+    <main className='max-w-7xl px-4 mx-auto'>
       <h1 className='title text-center'>My Listings</h1>
       {deleteListingError && (
         <p className='text-pink'>Failed to delete listings, please try again</p>
@@ -59,7 +59,7 @@ export default function MyListings() {
           myListings.map((listing) => (
             <div
               key={listing._id}
-              className='flex items-center justify-between gap-4 bg-linen border border-leaves rounded-lg p-3'
+              className='flex items-center justify-between gap-4 bg-white border border-champagne rounded-lg p-3'
             >
               <img
                 src={listing.imageUrls[0]}

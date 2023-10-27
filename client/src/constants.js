@@ -25,7 +25,7 @@ export const endpoints = {
   userListings: '/api/user/listings',
 
   // listing endpoints
-  retrieveListing: '/api/listing/retrieve',
+  retrieveListings: '/api/listing/retrieve',
   createListing: '/api/listing/create',
   updateListing: '/api/listing/update',
   deleteListing: '/api/listing/delete',

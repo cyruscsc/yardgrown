@@ -5,6 +5,7 @@ export default {
     colors: {
       transparent: 'transparent',
       current: 'currentColor',
+      white: '#FFFFFF',
       snow: '#FDFAF6',
       linen: '#FAF1E6',
       champagne: '#F3DEBA',

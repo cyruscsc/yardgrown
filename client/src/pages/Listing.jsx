@@ -32,7 +32,7 @@ export default function Listing() {
     try {
       setLoading(true);
       setError(false);
-      const res = await fetch(endpoints.retrieveListing + `/${params.id}`);
+      const res = await fetch(endpoints.retrieveListings + `/${params.id}`);
       const data = await res.json();
       if (data.success === false) {
         setError(true);
@@ -100,7 +100,7 @@ export default function Listing() {
               <FaPaperPlane />
             </Link>
           )}
-          <article className='max-w-5xl p-4 mx-auto'>
+          <article className='max-w-7xl p-4 mx-auto'>
             <h1 className='title flex flex-col gap-4 md:flex-row md:justify-between'>
               <span>{listing.title}</span>{' '}
               <span className='text-pink'>${listing.price.toFixed(2)}</span>

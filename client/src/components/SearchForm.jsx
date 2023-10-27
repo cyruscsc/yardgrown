@@ -14,10 +14,8 @@ export default function SearchForm() {
     setFormData(allParams);
   }, [window.location.search]);
 
-  const handleChange = (e) => {
-    if (e.target.type === 'text' || e.target.type === 'select-one')
-      setFormData({ ...formData, [e.target.id]: e.target.value });
-  };
+  const handleChange = (e) =>
+    setFormData({ ...formData, [e.target.id]: e.target.value });
 
   const handleClick = (key) => {
     setFormData(
@@ -30,7 +28,8 @@ export default function SearchForm() {
   const handleSearch = (e) => {
     e.preventDefault();
     const urlParams = new URLSearchParams(window.location.search);
-    for (const key in formData) urlParams.set(key, formData[key]);
+    for (const key in formData)
+      formData[key] ? urlParams.set(key, formData[key]) : urlParams.delete(key);
     const queryParams = urlParams.toString();
     navigate(routes.market + `?${queryParams}`);
   };
