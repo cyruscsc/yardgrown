@@ -2,6 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { endpoints, routes } from '../constants';
 import { FaBagShopping, FaLocationDot, FaTruckFast } from 'react-icons/fa6';
+import ListingCard from '../components/ListingCard';
 
 export default function Market() {
   const navigate = useNavigate();
@@ -97,46 +98,7 @@ export default function Market() {
       {listings && (
         <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 py-4'>
           {listings.map((listing) => (
-            <article className='flex flex-col items-center justify-start bg-white border border-champagne rounded-lg overflow-hidden'>
-              <img
-                src={listing.imageUrls[0]}
-                alt={listing.title}
-                className='h-64 w-full object-cover object-center'
-              />
-              <div className='flex flex-col items-start justify-start gap-4 p-3'>
-                <h2 className='font-bold text-lg my-2'>{listing.title}</h2>
-                <span className='text-gray'>
-                  {listing.category.charAt(0).toUpperCase() +
-                    listing.category.slice(1)}
-                </span>
-                <p className=' line-clamp-3'>{listing.description}</p>
-                <div className='flex items-center justify-start gap-16 w-full'>
-                  <span className='text-pink'>${listing.price.toFixed(2)}</span>
-
-                  <span className='text-gray'>
-                    {new Date(listing.createdAt).toLocaleDateString()}
-                  </span>
-                </div>
-                <div className='flex items-center justify-start gap-8'>
-                  <div className='flex items-center gap-2'>
-                    <FaLocationDot className='fill-grullo' />
-                    <span className='text-grullo'>{listing.city}</span>
-                  </div>
-                  {listing.delivery && (
-                    <div className='flex items-center gap-2'>
-                      <FaTruckFast className='fill-xanadu' />
-                      <span className='text-xanadu'>Delivery</span>
-                    </div>
-                  )}
-                  {listing.pickup && (
-                    <div className='flex items-center gap-2'>
-                      <FaBagShopping className='fill-xanadu' />
-                      <span className='text-xanadu'>Pickup</span>
-                    </div>
-                  )}
-                </div>
-              </div>
-            </article>
+            <ListingCard key={listing._id} listing={listing} />
           ))}
         </div>
       )}
