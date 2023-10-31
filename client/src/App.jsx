@@ -12,6 +12,7 @@ import MyListings from './pages/MyListings';
 import EditListing from './pages/EditListing';
 import Listing from './pages/Listing';
 import Market from './pages/Market';
+import Footer from './components/Footer';
 
 export default function App() {
   return (
@@ -31,6 +32,7 @@ export default function App() {
           <Route path={routes.myListings} element={<MyListings />} />
         </Route>
       </Routes>
+      <Footer />
     </BrowserRouter>
   );
 }
