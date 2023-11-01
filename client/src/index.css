@@ -6,8 +6,12 @@
   @apply font-quicksand text-wenge;
 }
 
-body {
-  @apply bg-snow;
+main {
+  @apply w-full flex-auto;
+}
+
+#root {
+  @apply flex flex-col min-h-screen;
 }
 
 .title {

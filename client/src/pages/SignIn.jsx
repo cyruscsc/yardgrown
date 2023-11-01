@@ -57,7 +57,7 @@ export default function SignIn() {
   };
 
   return (
-    <div className='auth-container'>
+    <main className='auth-container'>
       <h1 className='title text-center'>Welcome back!</h1>
       <form onSubmit={handleSubmit} className='auth-form'>
         <input
@@ -88,6 +88,6 @@ export default function SignIn() {
         </Link>
       </div>
       {error && <p className='text-pink'>{error}</p>}
-    </div>
+    </main>
   );
 }

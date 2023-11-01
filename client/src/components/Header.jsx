@@ -7,7 +7,7 @@ import {
   FaRegRectangleList,
 } from 'react-icons/fa6';
 import logo from '../assets/yardgrown-wenge.png';
-import SearchForm from './SearchForm';
+import SearchBar from './SearchBar';
 
 export default function Header() {
   const { currentUser } = useSelector((state) => state.user);
@@ -24,8 +24,8 @@ export default function Header() {
             Yard<span className='text-grullo'>Grown</span>
           </h1>
         </Link>
-        <div className='hidden md:block'>
-          <SearchForm />
+        <div className='hidden sm:block'>
+          <SearchBar />
         </div>
         <nav>
           <ul className='flex items-center justify-center gap-4 sm:gap-6 md:gap-8 text-2xl'>
@@ -57,8 +57,8 @@ export default function Header() {
           </ul>
         </nav>
       </div>
-      <div className='block md:hidden mx-auto px-4 pb-4'>
-        <SearchForm />
+      <div className='block sm:hidden mx-auto px-4 pb-4'>
+        <SearchBar />
       </div>
     </header>
   );

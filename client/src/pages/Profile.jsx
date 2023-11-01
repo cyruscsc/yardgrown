@@ -115,7 +115,7 @@ export default function Profile() {
   };
 
   return (
-    <div className='auth-container'>
+    <main className='auth-container'>
       <h1 className='title text-center'>Profile</h1>
       <form onSubmit={handleSubmit} className='auth-form'>
         <img
@@ -179,6 +179,6 @@ export default function Profile() {
       </div>
       {success && <p className='text-leaves'>User updated successfully!</p>}
       {error && <p className='text-pink'>{error}</p>}
-    </div>
+    </main>
   );
 }

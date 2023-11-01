@@ -3,7 +3,7 @@ import sharing from '../assets/sharing.jpg';
 
 export default function About() {
   return (
-    <main className=''>
+    <main>
       <img
         src={sharing}
         alt='Sharing'

@@ -1,8 +1,8 @@
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { endpoints, routes } from '../constants';
-import { FaBagShopping, FaLocationDot, FaTruckFast } from 'react-icons/fa6';
 import ListingCard from '../components/ListingCard';
+import FilterBar from '../components/FilterBar';
 
 export default function Market() {
   const navigate = useNavigate();
@@ -29,6 +29,8 @@ export default function Market() {
   }, [formData]);
 
   const handleChange = (e) => {
+    if (e.target.type === 'checkbox')
+      return setFormData({ ...formData, [e.target.id]: e.target.checked });
     setFormData({ ...formData, [e.target.id]: e.target.value });
   };
 
@@ -61,42 +63,15 @@ export default function Market() {
   return (
     <main className='max-w-7xl px-4 mx-auto'>
       <h1 className='title'>YG Market</h1>
-      <div className='flex items-center justify-start flex-wrap gap-4 my-4'>
-        <select
-          value={formData.sort || ''}
-          onChange={handleChange}
-          id='sort'
-          className={`w-32 p-2 border border-linen rounded-lg ${
-            formData.sort ? 'text-wenge' : 'text-gray'
-          }`}
-        >
-          <option value=''>Sort by</option>
-          <option value='createdAt'>Date</option>
-          <option value='price'>Price</option>
-        </select>
-        <select
-          value={formData.order || ''}
-          disabled={!formData.sort}
-          onChange={handleChange}
-          id='order'
-          className={`w-32 p-2 border border-linen rounded-lg ${
-            formData.order ? 'text-wenge' : 'text-gray'
-          }`}
-        >
-          <option value=''>Order from</option>
-          <option value='asc'>
-            {formData.sort === 'price' ? 'Low to High' : 'Old to new'}
-          </option>
-          <option value='desc'>
-            {formData.sort === 'price' ? 'High to Low' : 'New to old'}
-          </option>
-        </select>
-        {loading && <span className='text-leaves'>Loading...</span>}
-        {error && <span className='text-pink'>Something went wrong!</span>}
-      </div>
+      <FilterBar
+        formData={formData}
+        handleChange={handleChange}
+        loading={loading}
+        error={error}
+      />
       {!listings && <span className='text-grullo'>We ran out of stock!</span>}
       {listings && (
-        <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 py-4'>
+        <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 py-4'>
           {listings.map((listing) => (
             <ListingCard key={listing._id} listing={listing} />
           ))}

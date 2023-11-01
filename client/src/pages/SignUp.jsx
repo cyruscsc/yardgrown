@@ -55,7 +55,7 @@ export default function SignUp() {
   };
 
   return (
-    <div className='auth-container'>
+    <main className='auth-container'>
       <h1 className='title text-center'>Welcome to the YG community!</h1>
       <form onSubmit={handleSubmit} className='auth-form'>
         <input
@@ -94,6 +94,6 @@ export default function SignUp() {
         </Link>
       </div>
       {error && <p className='text-pink'>{error}</p>}
-    </div>
+    </main>
   );
 }

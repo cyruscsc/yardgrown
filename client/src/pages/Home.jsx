@@ -27,7 +27,7 @@ export default function Home() {
   };
 
   return (
-    <div>
+    <main>
       <section id='hero' className='bg-leaves'>
         <div className='flex flex-col items-start justify-center gap-4 max-w-7xl m-auto px-4 py-16'>
           <h1 className='text-3xl md:text-5xl font-medium'>
@@ -91,6 +91,6 @@ export default function Home() {
           </div>
         </div>
       </section>
-    </div>
+    </main>
   );
 }

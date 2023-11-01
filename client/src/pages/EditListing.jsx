@@ -37,7 +37,7 @@ export default function EditListing() {
 
   const retrieveListing = async () => {
     try {
-      const res = await fetch(endpoints.retrieveListing + `/${params.id}`);
+      const res = await fetch(endpoints.retrieveListings + `/${params.id}`);
       const data = await res.json();
       if (data.success === false) return setError(data.message);
       setFormData(data);
@@ -143,7 +143,7 @@ export default function EditListing() {
 
   return (
     <main className='max-w-7xl px-4 mx-auto'>
-      <h1 className='title'>Bring a product to the market</h1>
+      <h1 className='title'>Edit Listing</h1>
       <form onSubmit={handleSubmit} className='flex flex-col md:flex-row gap-4'>
         <div className='create-form-section'>
           <input
