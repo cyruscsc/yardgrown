@@ -1,7 +1,6 @@
 import { Link } from 'react-router-dom';
 import logo from '../assets/yardgrown-snow.png';
 import { routes } from '../constants';
-import { FaArrowDown, FaFacebook, FaInstagram } from 'react-icons/fa6';
 
 export default function Footer() {
   return (
@@ -10,17 +9,17 @@ export default function Footer() {
         <div className='flex items-center justify-center gap-8 w-full'>
           <ul className='flex flex-col sm:flex-row items-end sm:items-center justify-center gap-2 sm:gap-4 w-60'>
             <li>
-              <Link to={routes.market} className='text-snow'>
+              <Link to={routes.market} className='footer-link'>
                 Market
               </Link>
             </li>
             <li>
-              <Link to={routes.about} className='text-snow'>
+              <Link to={routes.about} className='footer-link'>
                 About
               </Link>
             </li>
             <li>
-              <Link to={routes.profile} className='text-snow'>
+              <Link to={routes.profile} className='footer-link'>
                 Profile
               </Link>
             </li>
@@ -31,7 +30,7 @@ export default function Footer() {
               <Link
                 to='https://facebook.com'
                 target='_blank'
-                className='text-snow'
+                className='footer-link'
               >
                 Facebook
               </Link>
@@ -40,7 +39,7 @@ export default function Footer() {
               <Link
                 to='https://instagram.com'
                 target='_blank'
-                className='text-snow'
+                className='footer-link'
               >
                 Instagram
               </Link>
@@ -49,7 +48,7 @@ export default function Footer() {
               <Link
                 to='https://twitter.com'
                 target='_blank'
-                className='text-snow'
+                className='footer-link'
               >
                 Twitter
               </Link>

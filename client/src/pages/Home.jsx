@@ -1,10 +1,9 @@
-import { Link } from 'react-router-dom';
 import { endpoints, routes } from '../constants';
-import { FaArrowRight } from 'react-icons/fa6';
 import { useEffect, useState } from 'react';
 import ListingCard from '../components/ListingCard';
 import seeding from '../assets/seeding.jpg';
 import { homePageText } from '../text';
+import PageLink from '../components/PageLink';
 
 export default function Home() {
   const [newListings, setNewListings] = useState([]);
@@ -39,13 +38,11 @@ export default function Home() {
             Discover, share, and embrace the bountiful beauty of homegrown
             treasures.
           </p>
-          <Link
+          <PageLink
             to={routes.market}
-            className='flex items-center justify-start gap-2 font-medium text-lg text-grullo mt-4'
-          >
-            Explore the market
-            <FaArrowRight className='fill-grullo' />
-          </Link>
+            label='Explore the market'
+            position='start'
+          />
         </div>
       </section>
       <section id='newest'>
@@ -58,13 +55,11 @@ export default function Home() {
               ))}
             </div>
           </div>
-          <Link
+          <PageLink
             to={routes.market + `?sort=createdAt&order=desc`}
-            className='flex items-center justify-end gap-2 font-medium text-lg text-grullo mt-4'
-          >
-            Discover more treasures
-            <FaArrowRight className='fill-grullo' />
-          </Link>
+            label='Discover more treasures'
+            position='end'
+          />
         </div>
       </section>
       <section id='community' className='bg-linen'>
@@ -80,13 +75,11 @@ export default function Home() {
             </div>
             <div>
               <p>{homePageText}</p>
-              <Link
+              <PageLink
                 to={routes.about}
-                className='flex items-center justify-start gap-2 font-medium text-lg text-grullo mt-4'
-              >
-                Learn more about us
-                <FaArrowRight className='fill-grullo' />
-              </Link>
+                label='Learn more about us'
+                position='start'
+              />
             </div>
           </div>
         </div>

@@ -4,13 +4,13 @@ import { routes } from '../constants';
 
 export default function ListingCard(props) {
   return (
-    <article className='flex flex-col items-center justify-start bg-white border border-champagne rounded-lg overflow-hidden'>
+    <article className='listing-card draw-card'>
       <img
         src={props.listing.imageUrls[0]}
         alt={props.listing.title}
         className='h-64 w-full object-cover object-center'
       />
-      <div className='flex flex-col items-start justify-start gap-4 p-3'>
+      <div className='flex flex-col flex-auto items-start justify-start gap-4 w-full p-3'>
         <Link to={routes.listing + `/${props.listing._id}`}>
           <h2 className='font-bold text-lg my-2 line-clamp-1'>
             {props.listing.title}
@@ -20,7 +20,9 @@ export default function ListingCard(props) {
           {props.listing.category.charAt(0).toUpperCase() +
             props.listing.category.slice(1)}
         </span>
-        <p className='line-clamp-3'>{props.listing.description}</p>
+        <div className='line-clamp-3 flex-auto'>
+          {props.listing.description}
+        </div>
         <div className='flex items-center justify-start gap-16 w-full'>
           <span className='text-pink'>${props.listing.price.toFixed(2)}</span>
 

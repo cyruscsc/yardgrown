@@ -1,11 +1,10 @@
 import { useNavigate } from 'react-router-dom';
-import { categories, routes } from '../constants';
-import { FaBagShopping, FaMagnifyingGlass, FaTruckFast } from 'react-icons/fa6';
+import { FaMagnifyingGlass } from 'react-icons/fa6';
 import { useEffect, useState } from 'react';
+import { routes } from '../constants';
 
 export default function SearchBar() {
   const navigate = useNavigate();
-  const [formData, setFormData] = useState({});
   const [keywords, setKeywords] = useState('');
 
   useEffect(() => {
@@ -38,7 +37,7 @@ export default function SearchBar() {
         className='bg-stream px-2 py-1 rounded-s-lg h-10 w-full focus:outline-none'
       />
       <button type='submit' className='bg-stream px-2 py-1 rounded-e-lg h-10'>
-        <FaMagnifyingGlass className='fill-xanadu hover:fill-wenge duration-300' />
+        <FaMagnifyingGlass className='fill-xanadu hover:fill-wenge duration-150' />
       </button>
     </form>
   );

@@ -19,7 +19,7 @@ main {
 }
 
 .nav-hover {
-  @apply hover:fill-xanadu duration-300;
+  @apply hover:fill-champagne duration-150;
 }
 
 .auth-container {
@@ -72,4 +72,24 @@ main {
 
 .fixed-button {
   @apply fixed z-50 bg-snow shadow-md rounded-full text-lg p-3;
+}
+
+.page-link {
+  @apply flex items-center gap-2 font-medium text-lg text-grullo w-max mt-4;
+}
+
+.move-forward {
+  @apply hover:translate-x-2 hover:scale-105 duration-150;
+}
+
+.listing-card {
+  @apply flex flex-col items-center justify-start bg-white border border-champagne rounded-lg shadow-md overflow-hidden;
+}
+
+.draw-card {
+  @apply hover:translate-x-1 hover:-translate-y-1 hover:scale-[1.02] hover:shadow-xl duration-150;
+}
+
+.footer-link {
+  @apply text-snow hover:text-stream duration-150;
 }
