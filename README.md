@@ -16,13 +16,15 @@
 
 This project uses MongoDB as the back-end database. There are two collections, `User` and `Listing`. As one user can have multiple listings, the `_id` field of a user is stored as the `userRef` in a listing to establish the relationship.
 
+All images are stored in Firebase storage, and the correspondent urls are stored in the MongoDB collections as strings.
+
 ### Schema Design
 
 ![YardGrown Schema Design](/images/yg-schema-design.svg)
 
 ## User Authentication
 
-The YardGrown app uses cookie-based JSON Web Token (JWT) and Google firebase authentication.
+The YardGrown app uses cookie-based JSON Web Token (JWT) and Google Firebase authentication.
 
 - Auth controller functions: `/server/controllers/auth.controller.js`
 
@@ -66,6 +68,18 @@ The YardGrown app uses cookie-based JSON Web Token (JWT) and Google firebase aut
 - `order`: 'asc' of 'desc'
 - `limit`: number
 - `startIndex`: number
+
+#### Form data
+
+- `title`: string
+- `description`: string
+- `category`: string
+- `price`: number
+- `delivery`: boolean
+- `pickup`: boolean
+- `city`: string
+- `email`: string
+- `imageUrls`: string[]
 
 ## UI Design
 
